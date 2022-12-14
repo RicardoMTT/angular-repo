@@ -1,0 +1,32 @@
+<div class="drag-drop d-flex align-items-center justify-content-center" *ngIf="!files[0]" (click)="inputFile.click()" [ngStyle]="{'border': border}"
+ (dragover)="fileOver($event)" (dragleave)="fileLeave($event)" (drop)="fileDrop($event)">
+
+  <ul class="text-center" style="color: #b6b7b7">
+    <li class="font-16">Arrastra el archivo aquí</li>
+    <li class="font-12 py-3">- o -</li>
+    <li class="font-12 c-blue">Selecciona un archivo desde tu equipo</li>
+  </ul>
+
+  <input hidden type="file" #inputFile (change)="uploadFile($event.target.files)" accept=".csv">
+</div>
+
+
+<div *ngIf="files[0]" class="d-flex align-items-center flex-column justify-content-center">
+  <div class="d-flex justify-content-center">
+    <img src="/assets/images/img-success.svg" alt="" width="48">
+    <ul class="pt-1">
+      <li class="font-14" style="color: #979797">{{ files[0].name }}</li>
+      <li class="font-14" style="color: #454647">{{ (files[0].size / (1024*1024)).toFixed(2) }}MB</li>
+      <li class="font-12"><a href="javascript:;" class="c-blue">Eliminar</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<button (click)="uploadToServer()">Upload file</button>
+
+<ng-container *ngIf="imageUrl">
+  {{imageUrl}}
+  <img [src]="imageUrl" alt="image" width="200" height="200">
+</ng-container>
+
